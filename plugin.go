@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/drone/drone-template-lib/template"
-	"github.com/josmo/drone-google-chat/google-chat"
+	"github.com/goldinteractive/drone-google-chat/google-chat"
 	"strings"
 )
 
@@ -20,12 +20,19 @@ type (
 		Commit  string
 		Ref     string
 		Branch  string
-		Author  string
+		Author  Author
 		Message string
 		Status  string
 		Link    string
 		Started int64
 		Created int64
+	}
+
+	Author struct {
+		Username string
+		Name     string
+		Email    string
+		Avatar   string
 	}
 
 	Config struct {
@@ -47,6 +54,10 @@ type (
 		Job    Job
 	}
 )
+
+func (a Author) String() string {
+	return a.Username
+}
 
 func (p Plugin) Exec() error {
 

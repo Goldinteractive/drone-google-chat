@@ -75,8 +75,23 @@ func main() {
 		},
 		cli.StringFlag{
 			Name:   "commit.author",
-			Usage:  "git author name",
+			Usage:  "git author username",
 			EnvVar: "DRONE_COMMIT_AUTHOR",
+		},
+		cli.StringFlag{
+			Name:   "commit.author.email",
+			Usage:  "git author email",
+			EnvVar: "DRONE_COMMIT_AUTHOR_EMAIL",
+		},
+		cli.StringFlag{
+			Name:   "commit.author.avatar",
+			Usage:  "git author avatar",
+			EnvVar: "DRONE_COMMIT_AUTHOR_AVATAR",
+		},
+		cli.StringFlag{
+			Name:   "commit.author.name",
+			Usage:  "git author name",
+			EnvVar: "DRONE_COMMIT_AUTHOR_NAME",
 		},
 		cli.StringFlag{
 			Name:   "commit.message",
@@ -154,7 +169,12 @@ func run(c *cli.Context) error {
 			Commit:  c.String("commit.sha"),
 			Ref:     c.String("commit.ref"),
 			Branch:  c.String("commit.branch"),
-			Author:  c.String("commit.author"),
+			Author: Author{
+				Username: c.String("commit.author"),
+				Name:     c.String("commit.author.name"),
+				Email:    c.String("commit.author.email"),
+				Avatar:   c.String("commit.author.avatar"),
+			},
 			Message: c.String("commit.message"),
 			Link:    c.String("build.link"),
 			Started: c.Int64("build.started"),
